@@ -5,6 +5,8 @@ import { MikroORM } from "@mikro-orm/core";
 import path from "path";
 
 export default {
+  user: "postgres",
+  password: "postgres",
   migrations: {
     path: path.join(__dirname, "./migrations"),
     pattern: /^[\w-]+\d+\.[tj]s$/,
