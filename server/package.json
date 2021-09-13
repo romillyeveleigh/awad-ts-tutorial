@@ -8,8 +8,7 @@
     "dev": "nodemon dist/index.js",
     "start": "node dist/index.js",
     "start2": "ts-node src/index.ts",
-    "dev2": "nodemon --exec ts-node src/index.ts",
-    "create:migration": "mikro-orm migration:create"
+    "dev2": "nodemon --exec ts-node src/index.ts"
   },
   "keywords": [],
   "author": "",
@@ -19,8 +18,11 @@
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.7",
     "@types/express-session": "^1.17.0",
+    "@types/ioredis": "^4.27.2",
     "@types/node": "^16.7.5",
+    "@types/nodemailer": "^6.4.4",
     "@types/redis": "^2.8.31",
+    "@types/uuid": "^8.3.1",
     "class-validator": "^0.13.1",
     "nodemon": "^2.0.12",
     "reflect-metadata": "^0.1.13",
@@ -28,10 +30,6 @@
     "typescript": "^4.4.2"
   },
   "dependencies": {
-    "@mikro-orm/cli": "^4.5.9",
-    "@mikro-orm/core": "^4.5.9",
-    "@mikro-orm/migrations": "^4.5.9",
-    "@mikro-orm/postgresql": "^4.5.9",
     "apollo-server-express": "^3.3.0",
     "argon2": "^0.28.2",
     "connect-redis": "^6.0.0",
@@ -39,15 +37,11 @@
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "graphql": "^15.5.1",
+    "ioredis": "^4.27.9",
+    "nodemailer": "^6.6.3",
     "pg": "^8.7.1",
-    "redis": "^3.1.2",
-    "type-graphql": "^1.1.1"
-  },
-  "mikro-orm": {
-    "useTsNode": true,
-    "configPaths": [
-      "./src/mikro-orm.config.ts",
-      "./dist/mikro-orm.config.js"
-    ]
+    "type-graphql": "^1.1.1",
+    "typeorm": "^0.2.37",
+    "uuid": "^8.3.2"
   }
 }

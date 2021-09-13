@@ -1,29 +1,40 @@
+import { User } from "./entities/User";
 import { PostResolver } from "./resolvers/posts";
 import "reflect-metadata";
 import { HelloResolver } from "./resolvers/hello";
 import { UserResolver } from "./resolvers/user";
-import { __prod__ } from "./constants";
-import { MikroORM } from "@mikro-orm/core";
-import microConfig from "./mikro-orm.config";
+import { __prod__, COOKIE_NAME } from "./constants";
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
-import redis from "redis";
+import Redis from "ioredis";
 import session from "express-session";
 import connectRedis from "connect-redis";
 import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
 import cors from "cors";
+import { createConnection } from "typeorm";
+import { Post } from "./entities/Post";
 
 // Got to 1:52:18
 // at https://www.youtube.com/watch?v=I6ypD7qv3Z8&t=48310s
 
 const main = async () => {
-  const orm = await MikroORM.init(microConfig);
-  await orm.getMigrator().up();
+  await createConnection({
+    type: "postgres",
+    database: "lireddit2",
+    username: "postgres",
+    password: "postgres",
+    logging: true,
+    synchronize: true,
+    entities: [Post, User],
+  });
+
   const app = express();
 
   const RedisStore = connectRedis(session);
-  const redisClient = redis.createClient();
+  const redis = new Redis();
+
+  redis.get;
 
   app.use(
     cors({
@@ -34,8 +45,8 @@ const main = async () => {
 
   app.use(
     session({
-      name: "qid",
-      store: new RedisStore({ client: redisClient, disableTouch: true }),
+      name: COOKIE_NAME,
+      store: new RedisStore({ client: redis, disableTouch: true }),
       cookie: {
         maxAge: 1000 * 60 * 60 * 24 * 365 * 10, // 10 years
         httpOnly: true,
@@ -58,7 +69,7 @@ const main = async () => {
       resolvers: [HelloResolver, PostResolver, UserResolver],
       validate: false,
     }),
-    context: ({ req, res }) => ({ em: orm.em, req, res }),
+    context: ({ req, res }) => ({ req, res, redis }),
   });
   await apolloServer.start();
   apolloServer.applyMiddleware({ app, cors: false });
