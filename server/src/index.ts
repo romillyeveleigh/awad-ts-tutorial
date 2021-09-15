@@ -14,20 +14,24 @@ import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-co
 import cors from "cors";
 import { createConnection } from "typeorm";
 import { Post } from "./entities/Post";
+import path from "path";
 
 // Got to 1:52:18
 // at https://www.youtube.com/watch?v=I6ypD7qv3Z8&t=48310s
 
 const main = async () => {
-  await createConnection({
+  const conn = await createConnection({
     type: "postgres",
     database: "lireddit2",
     username: "postgres",
     password: "postgres",
     logging: true,
     synchronize: true,
+    migrations: [path.join(__dirname, "./migrations/*")],
     entities: [Post, User],
   });
+
+  await conn.runMigrations();
 
   const app = express();
 
