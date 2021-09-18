@@ -1,20 +1,19 @@
-import { ChevronDownIcon, ChevronUpIcon, DeleteIcon } from "@chakra-ui/icons";
+import { ChevronDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
 import { Box, Flex, Heading, IconButton, Link, Text } from "@chakra-ui/react";
+import NextLink from "next/link";
 import React, { useState } from "react";
 import {
   PostSnippetFragment,
-  useDeletePostMutation,
+  useMeQuery,
   useVoteMutation,
 } from "../generated/graphql";
-import NextLink from "next/link";
-import { VariablesInAllowedPositionRule } from "graphql";
+import { EditDeletePostButtons } from "./EditDeletePostButtons";
 
 interface UpdootSectionProps {
   post: PostSnippetFragment;
 }
 
 export const UpdootSection: React.FC<UpdootSectionProps> = ({ post }) => {
-  const [, deletePost] = useDeletePostMutation();
   const [loadingState, setLoadingState] = useState<
     "updoot-loading" | "downdoot-loading" | "not-loading"
   >("not-loading");
@@ -78,16 +77,9 @@ export const UpdootSection: React.FC<UpdootSectionProps> = ({ post }) => {
           <Text flex={1} mt={4}>
             {post.textSnippet}
           </Text>
-          <IconButton
-            ml="auto"
-            colorScheme="red"
-            aria-label="delete"
-            icon={<DeleteIcon />}
-            onClick={() => {
-              deletePost({ id: post.id });
-            }}
-            size="xs"
-          />
+          <Box ml="auto">
+            <EditDeletePostButtons id={post.id} creatorId={post.creator.id} />
+          </Box>
         </Flex>
       </Box>
     </Flex>
