@@ -21,6 +21,9 @@ const Index = () => {
       <div>
         <div>you got query failed for some reason</div>
         <div>{error?.message}</div>
+        <div>
+          process.env.NEXT_PUBLIC_API_URL: {process.env.NEXT_PUBLIC_API_URL}
+        </div>
       </div>
     );
   }

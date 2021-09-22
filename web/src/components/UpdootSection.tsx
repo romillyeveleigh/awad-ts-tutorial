@@ -2,11 +2,7 @@ import { ChevronDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
 import { Box, Flex, Heading, IconButton, Link, Text } from "@chakra-ui/react";
 import NextLink from "next/link";
 import React, { useState } from "react";
-import {
-  PostSnippetFragment,
-  useMeQuery,
-  useVoteMutation,
-} from "../generated/graphql";
+import { PostSnippetFragment, useVoteMutation } from "../generated/graphql";
 import { EditDeletePostButtons } from "./EditDeletePostButtons";
 
 interface UpdootSectionProps {
