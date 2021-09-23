@@ -1,6 +1,6 @@
+import React from "react";
 import { Button } from "@chakra-ui/button";
 import { Flex, Stack } from "@chakra-ui/layout";
-import React from "react";
 import { Layout } from "../components/Layout";
 import PostElement from "../components/PostElement";
 import { usePostsQuery } from "../generated/graphql";
@@ -33,7 +33,9 @@ const Index = () => {
         <div>Loading...</div>
       ) : (
         <Stack spacing={8}>
-          {data!.posts.posts.map((p) => (!p ? null : <PostElement post={p} />))}
+          {data!.posts.posts.map((p) =>
+            !p ? null : <PostElement key={p.id} {...p} />
+          )}
         </Stack>
       )}
       {data && data.posts.hasMore ? (
@@ -80,4 +82,4 @@ const Index = () => {
   );
 };
 
-export default withApollo({ ssr: true })(Index);
+export default withApollo({ ssr: false })(Index);

@@ -16,7 +16,6 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
   if (loading) {
     // user not logged in
   } else if (!data?.me) {
-    console.log(`data.me`, data?.me);
     body = (
       <>
         <Flex align="center" alignItems="center">

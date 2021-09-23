@@ -7,13 +7,8 @@ import {
   useVoteMutation,
   VoteMutation,
 } from "../generated/graphql";
-import { withApollo } from "../utils/withApollo";
 import { EditDeletePostButtons } from "./EditDeletePostButtons";
 import { ApolloCache, gql } from "@apollo/client";
-
-interface PostElementProps {
-  post: PostSnippetFragment;
-}
 
 const updateAfterVote = (
   value: number,
@@ -53,7 +48,7 @@ const updateAfterVote = (
   }
 };
 
-const PostElement: React.FC<PostElementProps> = ({ post }) => {
+const PostElement: React.FunctionComponent<PostSnippetFragment> = (post) => {
   const [loadingState, setLoadingState] = useState<
     "updoot-loading" | "downdoot-loading" | "not-loading"
   >("not-loading");
@@ -133,4 +128,4 @@ const PostElement: React.FC<PostElementProps> = ({ post }) => {
   );
 };
 
-export default withApollo({ ssr: true })(PostElement);
+export default PostElement;
