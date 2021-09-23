@@ -32,7 +32,7 @@ const main = async () => {
     migrations: [path.join(__dirname, "./migrations/*")],
     entities: [Post, User, Updoot],
   });
-  await conn.runMigrations();
+  // await conn.runMigrations();
 
   const app = express();
 
@@ -68,7 +68,7 @@ const main = async () => {
 
   app.get("/", (_, res) => {
     res.send(
-      `hello world xxx, 
+      `hello world, 
        process.env.CORS_ORIGIN: ${process.env.CORS_ORIGIN},
        process.env.REDIS_URL: ${process.env.REDIS_URL},
        `
