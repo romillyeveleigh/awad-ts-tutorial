@@ -15,7 +15,7 @@ import { toErrorMap } from "../../utils/toErrorMap";
 import NextLink from "next/link";
 import { withApollo } from "../../utils/withApollo";
 
-export const ChangePassword: NextPage<{ token: string }> = () => {
+export const ChangePassword: NextPage = () => {
   const [changePassword] = useChangePasswordMutation();
   const router = useRouter();
   const [tokenError, setTokenError] = useState("");
